@@ -28,11 +28,11 @@ def scraper(driver):
 
 def createFile(driver):
     wait = WebDriverWait(driver, 10)
-    job = Job()
+    job = createJob()
     try:
         title = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'dashboard-header__profile-information-name')))
         #print(title, title[0].text)
-        job.title = title[0].text
+        job['title'] = title[0].text
     except Exception as e:
         print(str(e))
 
@@ -65,22 +65,15 @@ def createFile(driver):
     driver.close()
     return 
 
-class Job:
-    def __init__(self):
-        self.description = 'None'
-        self.title = 'None'
-        self.organization = 'None'
-        self.address = 'None'
-        self.city = 'None'
-        self.province = 'None'
-        self.postal = 'None'
-    def __str__(self) -> str:
-        return "description: %\ntitle: %\n organization: %\n address: %\n cite: %\n province: %\n postal: %\n" % \
-        (self.description,
-        self.title,
-        self.organization,
-        self.address,
-        self.city,
-        self.province,
-        self.postal,)
+def createJob():
+    result = {}
+    result['description'] = 'None'
+    result['title'] = 'None'
+    result['organization'] = 'None'
+    result['address'] = 'None'
+    result['city'] = 'None'
+    result['province'] = 'None'
+    result['postal'] = 'None'
+    return result
+
     
