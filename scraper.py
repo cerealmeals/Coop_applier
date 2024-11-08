@@ -20,7 +20,7 @@ def scraper(driver):
         if btn.text == 'Apply':
             
             btn.click()
-            driver.switch_to.window(driver.window_handles[-1])
+            driver.switch_to.window(driver.window_handles[1])
             time.sleep(0.5)
             createFile(driver)
             driver.switch_to.window(main)
@@ -28,52 +28,37 @@ def scraper(driver):
 
 def createFile(driver):
     wait = WebDriverWait(driver, 10)
-    job = createJob()
     try:
         title = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'dashboard-header__profile-information-name')))
         #print(title, title[0].text)
-        job['title'] = title[0].text
     except Exception as e:
-        print(str(e))
-
-    # try:
-    #     elements = driver.find_element((By.TAG_NAME, 'tr'))
-    #     for elem in elements:
-    #         try:
-    #             if elem.find_element((By.TAG_NAME, 'strong'))[0].text == 'Job Description:':
-
-    #         except Exception as e:
-    #             print(str(e))
-        
-    # except Exception as e:
-    #     print(str(e))
+        print('title error\n' ,str(e))
     
     
-    
+    print('Creating file for job', title[0].text)
     current = os.getcwd()
     if not os.path.exists(current):
         os.makedirs(current)
-    filepath = os.path.join(current, title[0].text)
+    filepath = os.path.join(current, 'Jobs', title[0].text)
     try:
         f = open(filepath, "w")
-        f.write(json.dumps(job))
+        
+        try:
+            elements = driver.find_elements(By.TAG_NAME, 'tr')
+            print('how many elements walking through:', len(elements))
+            for elem in elements:
+                f.write(elem.text + '#\n')
+            
+        except Exception as e:
+            print('tr error\n',str(e))
+        
         f.close()
     except Exception as e:
-        print(str(e))
+        print('file Error',str(e))
 
 
     driver.close()
     return 
 
-def createJob():
-    result = {}
-    result['description'] = 'None'
-    result['title'] = 'None'
-    result['organization'] = 'None'
-    result['address'] = 'None'
-    result['city'] = 'None'
-    result['province'] = 'None'
-    result['postal'] = 'None'
-    return result
 
     

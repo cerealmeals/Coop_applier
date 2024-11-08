@@ -16,7 +16,7 @@ def main(args):
     scraper(driver)
     
     time.sleep(10)
-    driver.close()
+    driver.quit()
 
 if __name__=="__main__":
     if len(sys.argv) != 3:

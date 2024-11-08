@@ -4,7 +4,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.keys import Keys
 import time
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 def login(user, secret):
@@ -29,19 +31,21 @@ def login(user, secret):
     wait.until(EC.title_contains('myExp'))
     wait = WebDriverWait(driver, 1)
     try:
-        code = wait.until(EC.presence_of_element_located((By.LINK_TEXT, "Exp. Learning (Co-op)")))
-        time.sleep(0.1)
-        code.click()
+        nav = wait.until(EC.presence_of_element_located((By.LINK_TEXT, "Exp. Learning (Co-op)")))
+        time.sleep(1)
+        nav.click()
 
     except TimeoutException as ex:
         print("Error exp", str(ex))
     except Exception as e:
         print(str(e))
 
+    open_documents(driver)   
+
     try:
-        code = wait.until(EC.presence_of_element_located((By.LINK_TEXT, "Job Postings")))
+        nav = wait.until(EC.presence_of_element_located((By.LINK_TEXT, "Job Postings")))
         
-        code.click()
+        nav.click()
         
     except TimeoutException as ex:
         print("Error Job", str(ex))
@@ -66,3 +70,30 @@ def login(user, secret):
     
     print(driver.title)
     return None
+
+
+def open_documents(driver):
+    wait = WebDriverWait(driver, 10)
+    try:
+        nav = wait.until(EC.presence_of_element_located((By.LINK_TEXT, "Documents")))
+        action = ActionChains(driver)
+
+        action.key_down(Keys.LEFT_CONTROL)
+        action.click(nav)
+        action.key_up(Keys.LEFT_CONTROL)
+        action.perform()
+        
+        
+    except TimeoutException as ex:
+        print("Error Documents", str(ex))
+    except Exception as e:
+        print(str(e))
+    
+    driver.switch_to.window(driver.window_handles[-1])
+    bottons = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'btn-primary')))
+    for btn in bottons:
+        if btn.text == 'Upload Document':
+            btn.click()
+            break
+    driver.switch_to.window(driver.window_handles[0])
+    return
