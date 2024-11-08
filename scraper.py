@@ -8,7 +8,6 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import os
-import json
 
 def scraper(driver):
     
@@ -37,9 +36,10 @@ def createFile(driver):
     
     print('Creating file for job', title[0].text)
     current = os.getcwd()
+    current = os.path.join(current, 'Jobs')
     if not os.path.exists(current):
         os.makedirs(current)
-    filepath = os.path.join(current, 'Jobs', title[0].text)
+    filepath = os.path.join(current, title[0].text)
     try:
         f = open(filepath, "w")
         

@@ -1,32 +1,38 @@
-from spire.pdf.common import *
-from spire.pdf import *
+from python_docx_replace import docx_replace
+from docx import Document
 import datetime
+import os
 
+current = os.getcwd()
+current = os.path.join(current, 'Jobs')
 
+def createCoverLetter(file):
 
+    data = read_file(file)
+    # # get your document using python-docx
+    doc = Document("Cover_letter_test.docx")
 
-# Create an object of the PdfDocument class
-doc = PdfDocument()
-# Load a PDF file
-doc.LoadFromFile("Cover_letter_master.pdf")
-
-# Get the first page
-page = doc.Pages[0]
-
-# Iterate through the pages in the document
-for i in range(doc.Pages.Count):
-    # Get the current page
-    page = doc.Pages[i]    
-    # Create an object of the PdfTextReplace class and pass the page to the constructor of the class as a parameter
-    replacer = PdfTextReplacer(page)
-
-    # Replace the first instance of a specific text with new text
     date = datetime.datetime.now()
+    replace_word = {'[Date]': date.strftime("%B %b, %Y"), '[Company]': 'ABC'}
+
+    for word in replace_word:
+        for p in doc.paragraphs:
+            if p.text.find(word) >= 0:
+                p.text = p.text.replace(word, replace_word[word])
 
     
     
-    replacer.ReplaceText("[Date]", date.strftime("%B %d, %Y"))
+    doc.save(file + ".docx")
 
-# Save the resulting file
-doc.SaveToFile("Test.pdf")
-doc.Close()
+def read_file(file):
+
+    try:
+        f = open(os.path.join(current, file), 'r+')
+        data = f.read()
+    except Exception as e:
+        print('file Error trying to read data', str(e))
+
+    Company_start = '#\nAddress Line One: '.find()
+
+
+createCoverLetter('123757 - Software Developer')
