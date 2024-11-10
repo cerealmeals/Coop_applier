@@ -9,21 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import os
 
-def scraper(driver):
-    
-    main= driver.window_handles[0]
 
-    wait = WebDriverWait(driver, 10)
-    bottons = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'btn-primary')))
-    for btn in bottons:
-        if btn.text == 'Apply':
-            
-            btn.click()
-            driver.switch_to.window(driver.window_handles[1])
-            time.sleep(0.5)
-            createFile(driver)
-            driver.switch_to.window(main)
-    return
 
 def createFile(driver):
     wait = WebDriverWait(driver, 10)
@@ -58,7 +44,7 @@ def createFile(driver):
 
 
     driver.close()
-    return 
+    return title[0].text
 
 
     
