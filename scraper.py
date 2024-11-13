@@ -14,24 +14,27 @@ import os
 def createFile(driver):
     wait = WebDriverWait(driver, 10)
     try:
-        title = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'dashboard-header__profile-information-name')))
-        #print(title, title[0].text)
+        title_elem = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'dashboard-header__profile-information-name')))
+        title = title_elem[0].text
+        #print(title, title)
     except Exception as e:
         print('title error\n' ,str(e))
     
     
-    print('Creating file for job', title[0].text)
-    current = os.getcwd()
+    print('Creating file for job', title)
+    current = os.path.dirname(os.path.abspath(__file__))
     current = os.path.join(current, 'Jobs')
     if not os.path.exists(current):
         os.makedirs(current)
-    filepath = os.path.join(current, title[0].text)
+    print('Creating file for job', title)
+    print('at file path', current)
+    filepath = os.path.join(current, title)
     try:
         f = open(filepath, "w")
         
         try:
             elements = driver.find_elements(By.TAG_NAME, 'tr')
-            print('how many elements walking through:', len(elements))
+            #print('how many elements walking through:', len(elements))
             for elem in elements:
                 f.write(elem.text + '#\n')
             
@@ -44,7 +47,7 @@ def createFile(driver):
 
 
     driver.close()
-    return title[0].text
+    return title
 
 
     
