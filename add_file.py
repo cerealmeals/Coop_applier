@@ -51,7 +51,7 @@ def add_cover_letter(file_path, priority, keyword):
     return
 
 
-def add_resume_letter(file_path, priority, keyword):
+def add_resume(file_path, priority, keyword):
 
     # make sure path is a docx
     if file_path[-4:] != '.pdf':
