@@ -26,7 +26,7 @@ def createFile(driver):
     current = os.path.join(current, 'Jobs')
     if not os.path.exists(current):
         os.makedirs(current)
-    print('Creating file for job', title)
+    
     print('at file path', current)
     filepath = os.path.join(current, title)
     try:
@@ -45,8 +45,6 @@ def createFile(driver):
     except Exception as e:
         print('file Error',str(e))
 
-
-    driver.close()
     return title
 
 

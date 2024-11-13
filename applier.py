@@ -10,6 +10,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import os
 
 def applier(driver, title):
+
     wait = WebDriverWait(driver, 10)
     try:
         btn = wait.until(EC.presence_of_element_located((By.CLASS_NAME,'applyButton')))
@@ -19,7 +20,7 @@ def applier(driver, title):
         print('apply button error\n' ,str(e))
 
     try:
-        radio = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR,"input[type='radio'][value='customPkg']")))
+        radio = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,"input[type='radio'][value='customPkg']")))
         radio.click()
         
     except Exception as e:
@@ -28,21 +29,25 @@ def applier(driver, title):
     title_elem = driver.find_element(By.ID, 'packageName')
     title_elem.send_keys(title)
 
-    SIS = Select(driver.find_element(By.ID, 'requiredPackage18'))
+    SIS = Select(driver.find_element(By.ID, 'requiredInPackage18'))
     SIS.select_by_index(1)
 
-    cover = Select(driver.find_element(By.ID, 'requiredPackage14'))
+    cover = Select(driver.find_element(By.ID, 'requiredInPackage14'))
     cover.select_by_index(1)
 
-    resume = Select(driver.find_element(By.ID, 'requiredPackage15'))
+    resume = Select(driver.find_element(By.ID, 'requiredInPackage15'))
     resume.select_by_index(1)
 
-    transcript = Select(driver.find_element(By.ID, 'requiredPackage16'))
+    transcript = Select(driver.find_element(By.ID, 'requiredInPackage16'))
     transcript.select_by_index(1)
 
     submit = driver.find_element(By.CSS_SELECTOR, "input[type='Submit']")
 
+# click sumbit
 
+# check for popups.
+
+# output pop ups in the TO_DO folder
 
 
     

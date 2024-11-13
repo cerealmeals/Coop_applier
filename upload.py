@@ -50,6 +50,14 @@ def upload_cover_letter(driver, file):
     #print('out of wait')
     submit.click()
 
+    bottons = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'btn-primary')))
+    print(bottons[0].text)
+    for btn in bottons:
+        if btn.text == 'Upload Document':
+            btn.click()
+            break
+    return
+
 def upload_resume(driver, file):
     wait = WebDriverWait(driver, 10)
     # try:
@@ -83,22 +91,41 @@ def upload_resume(driver, file):
     wait_for_disable(submit)
     #print('Should be disabled:',submit.get_attribute('disabled'))
     #print(type(submit.get_attribute('disabled')))
+    
     wait_for_enable(submit)
     #print('out of wait')
+    
     submit.click()
+    
+    time.sleep(0.1)
+    bottons = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'btn-primary')))
+    print(bottons[0].text)
+    for btn in bottons:
+        if btn.text == 'Upload Document':
+            btn.click()
+            break
+    return
 
 def wait_for_enable(element):
+    count = 0
     #print('waiting to enable:', element.get_attribute('disabled'))
     while element.get_attribute('disabled') == 'true':
         #print('waiting to enable:', element.get_attribute('disabled'))
         if element.get_attribute('disabled') != 'true':
             break
+        if count >= 100:
+            break
+        count += 1
         time.sleep(0.1)
 
 def wait_for_disable(element):
+    count = 0
     #print('waiting to disable:', element.get_attribute('disabled'))
     while element.get_attribute('disabled') != 'true':
         #print('waiting to disable:', element.get_attribute('disabled'))
         if element.get_attribute('disabled') == 'true':
             break
+        if count >= 100:
+            break
+        count += 1
         time.sleep(0.1)
