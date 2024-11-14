@@ -65,10 +65,10 @@ def add_resume(file_path, priority, keyword):
         os.makedirs(current)
 
     # copy file from path to new folder named the keyword
-    cover = os.path.join(current, keyword + '.pdf')
-    if os.path.exists(cover):
+    resume = os.path.join(current, keyword + '.pdf')
+    if os.path.exists(resume):
         print('That Resume is already being used, the file for the keyword and priority is being updated ')
-    shutil.copy2(file_path, cover) # copy file to cover_letters folder
+    shutil.copy2(file_path, resume) # copy file to cover_letters folder
 
     obj = []
     prio = os.path.join(current, 'priority')

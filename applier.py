@@ -11,14 +11,16 @@ import os
 
 def applier(driver, title):
 
+    # on correct page click apply
     wait = WebDriverWait(driver, 10)
     try:
         btn = wait.until(EC.presence_of_element_located((By.CLASS_NAME,'applyButton')))
         btn.click()
-        
+     
     except Exception as e:
         print('apply button error\n' ,str(e))
 
+    # click button that to make new package
     try:
         radio = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,"input[type='radio'][value='customPkg']")))
         radio.click()
@@ -26,6 +28,8 @@ def applier(driver, title):
     except Exception as e:
         print('radio error\n' ,str(e))
 
+
+    # name the package the job title and use all most recent posts
     title_elem = driver.find_element(By.ID, 'packageName')
     title_elem.send_keys(title)
 
@@ -41,13 +45,9 @@ def applier(driver, title):
     transcript = Select(driver.find_element(By.ID, 'requiredInPackage16'))
     transcript.select_by_index(1)
 
+    # sumbit the job
     submit = driver.find_element(By.CSS_SELECTOR, "input[type='Submit']")
-
-# click sumbit
-
-# check for popups.
-
-# output pop ups in the TO_DO folder
+    submit.click()
 
 
     

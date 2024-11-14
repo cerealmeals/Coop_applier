@@ -11,12 +11,12 @@ import os
 
 
 
-def createFile(driver):
+def scraper(driver):
     wait = WebDriverWait(driver, 10)
     try:
         title_elem = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'dashboard-header__profile-information-name')))
         title = title_elem[0].text
-        #print(title, title)
+        
     except Exception as e:
         print('title error\n' ,str(e))
     
@@ -34,7 +34,7 @@ def createFile(driver):
         
         try:
             elements = driver.find_elements(By.TAG_NAME, 'tr')
-            #print('how many elements walking through:', len(elements))
+            
             for elem in elements:
                 f.write(elem.text + '#\n')
             

@@ -14,13 +14,8 @@ cover_letters = os.path.join(cover_letters, 'cover_letters')
 
 
 def upload_cover_letter(driver, file):
+    
     wait = WebDriverWait(driver, 10)
-    # try:
-    #     file_elem = driver.find_element(By.ID, 'fileUpload_docUpload')
-    #     file_elem.send_keys(os.path.join(cover_letters, file))
-    # except Exception as e:
-    #     print('File upload error\n' ,str(e))
-
     try:
         name = wait.until(EC.presence_of_element_located((By.ID,'docName')))
         name.send_keys('Cover_Letter')
@@ -42,16 +37,12 @@ def upload_cover_letter(driver, file):
     file_elem = driver.find_element(By.ID, 'fileUpload_docUpload')
     file_elem.send_keys(os.path.join(cover_letters, file))
 
-    #print('Waiting for disabled:')
     wait_for_disable(submit)
-    #print('Should be disabled:',submit.get_attribute('disabled'))
-    #print(type(submit.get_attribute('disabled')))
     wait_for_enable(submit)
-    #print('out of wait')
+    
     submit.click()
 
     bottons = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'btn-primary')))
-    print(bottons[0].text)
     for btn in bottons:
         if btn.text == 'Upload Document':
             btn.click()
@@ -59,16 +50,11 @@ def upload_cover_letter(driver, file):
     return
 
 def upload_resume(driver, file):
-    wait = WebDriverWait(driver, 10)
-    # try:
-    #     file_elem = driver.find_element(By.ID, 'fileUpload_docUpload')
-    #     file_elem.send_keys(os.path.join(cover_letters, file))
-    # except Exception as e:
-    #     print('File upload error\n' ,str(e))
 
+    wait = WebDriverWait(driver, 10)
     try:
         name = wait.until(EC.presence_of_element_located((By.ID,'docName')))
-        name.send_keys('Cover_Letter')
+        name.send_keys('resume')
 
     except Exception as e:
         print('Name error\n' ,str(e))
@@ -85,21 +71,16 @@ def upload_resume(driver, file):
     submit = driver.find_element(By.ID, 'submitFileUploadFormBtn')
 
     file_elem = driver.find_element(By.ID, 'fileUpload_docUpload')
-    file_elem.send_keys(os.path.join(cover_letters, file))
-
-    #print('Waiting for disabled:')
-    wait_for_disable(submit)
-    #print('Should be disabled:',submit.get_attribute('disabled'))
-    #print(type(submit.get_attribute('disabled')))
-    
+    file_elem.send_keys(os.path.join(resumes, file))
+   
+    wait_for_disable(submit)   
     wait_for_enable(submit)
-    #print('out of wait')
     
     submit.click()
     
     time.sleep(0.1)
     bottons = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'btn-primary')))
-    print(bottons[0].text)
+    
     for btn in bottons:
         if btn.text == 'Upload Document':
             btn.click()
@@ -108,9 +89,7 @@ def upload_resume(driver, file):
 
 def wait_for_enable(element):
     count = 0
-    #print('waiting to enable:', element.get_attribute('disabled'))
     while element.get_attribute('disabled') == 'true':
-        #print('waiting to enable:', element.get_attribute('disabled'))
         if element.get_attribute('disabled') != 'true':
             break
         if count >= 100:
@@ -119,10 +98,8 @@ def wait_for_enable(element):
         time.sleep(0.1)
 
 def wait_for_disable(element):
-    count = 0
-    #print('waiting to disable:', element.get_attribute('disabled'))
+    count = 0 
     while element.get_attribute('disabled') != 'true':
-        #print('waiting to disable:', element.get_attribute('disabled'))
         if element.get_attribute('disabled') == 'true':
             break
         if count >= 100:

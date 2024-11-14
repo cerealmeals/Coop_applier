@@ -13,9 +13,9 @@ def login(user, secret):
 
     driver = webdriver.Firefox()
     driver.get("https://myexperience.sfu.ca/notLoggedIn.htm")
-    #print(driver.title)
+    
     elem = driver.find_element(By.LINK_TEXT, "Student")
-    #print(elem)
+    
     elem.click()
 
     wait = WebDriverWait(driver, 20)

@@ -23,6 +23,7 @@ def selector(title):
     # walk through the keywords by priority
     while i < len(obj):
         tup = obj[i]
+        i += 1
         if lower_case_title.find(tup[1].lower()) != -1:
             break
     
@@ -44,6 +45,7 @@ def selector(title):
     # walk through the keywords by priority
     while i < len(obj):
         tup = obj[i]
+        i += 1
         if lower_case_title.find(tup[1].lower()) != -1:
             break
 

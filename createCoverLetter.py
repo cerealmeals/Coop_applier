@@ -1,6 +1,6 @@
-from docx import Document
-from docx2pdf import convert
-import datetime
+from docx import Document # dependency
+from docx2pdf import convert # dependency
+from datetime import datetime
 import os
 
 current = os.path.dirname(os.path.abspath(__file__))
@@ -13,19 +13,27 @@ def createCoverLetter(title, file_name):
     cover = os.path.join('cover_letters', file_name)
     doc = Document(cover)
 
-    date = datetime.datetime.now()
-    replace_word = {'[Date]': date.strftime("%B %b, %Y")}
-    replace_word.update(read_file(title))
+    # get current date
+    date = datetime.now()
 
+    # replace word is a dict of symboles : word. Symboles are in the docx and word is gotten the the job page
+    replace_word = {'[Date]': date.strftime("%B %e, %Y")}
+    add, flag = read_file(title)
+    replace_word.update(add)
+
+    # walk through the cover letter replacing words
     for word in replace_word:
         for p in doc.paragraphs:
             if p.text.find(word) >= 0:
                 p.text = p.text.replace(word, replace_word[word])
 
-    
+    # get the path to save the new docx
     save_path = os.path.join('cover_letters', title +'.docx')
     doc.save(save_path)
+    
+    # convert the docx to pdf
     convert(save_path)
+    return flag
 
 def read_file(file):
 
@@ -33,6 +41,7 @@ def read_file(file):
     try:
         f_jobs = open(os.path.join(jobs, file), 'r+')
         data = f_jobs.read()
+        f_jobs.close()
     except Exception as e:
         print('file Error trying to read data', str(e))
 
@@ -44,9 +53,24 @@ def read_file(file):
     result.update({'[Title]': file})
     result.update(getLine(data, '#\nOrganization: ', '[Company]'))
 
+    start = data.find('Additional Application Information: ')
+    flag = False
+    if start > -1:
+        flag = True
+        start += len('Additional Application Information: ')
+        end = data.find('#', start)
+        string = data[start:end]
+        todo = os.path.join(current, 'TODO')
+        if not os.path.exists(todo):
+            os.makedirs(todo)
+        try:
+            f = open(os.path.join(todo, file), 'w+')
+            f.write(string)
+            f.close()
+        except Exception as e:
+            print('file Error trying to read data', str(e))
     
-    
-    return result
+    return result, flag
     
 
 def getLine(data, line, type):

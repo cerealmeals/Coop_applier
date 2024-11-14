@@ -12,7 +12,7 @@ def cover_letter(args):
     return
 
 def applier(args):
-    driver.main([__file__, args.user, args.password])
+    driver.main(args.user, args.password)
     return
 
 parser = argparse.ArgumentParser()
