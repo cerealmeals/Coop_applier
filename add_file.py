@@ -1,5 +1,5 @@
-import pickle
-import shutil
+import pickle # dependency
+import shutil # dependency
 import os
 import heapq
 
