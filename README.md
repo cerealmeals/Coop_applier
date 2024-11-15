@@ -49,7 +49,34 @@ A cover letter template is a docx file that has things to replace within the doc
 
 An example cover letter could look like this
 
-![cover_letter](readme/cover_letter.png)
+![cover_letter](./readme/cover_letter.png)
 
 Now that the program has at least one cover letter and one resume, you need one more thing, a search template on the co-op board.
 
+To create an search template login into the sfu co-op job board and click advanced search
+![advanced_search](./readme/Search1.png)
+
+Then set up your search and click search job posting at the bottom of the page
+![search_job_posting](./readme/Search2.png)
+
+Now click Save my search criteria
+![save_search](./readme/Search3.png)
+
+And finally give your search a name and save
+![save](./readme/Search4.png)
+
+
+Running Coop applier
+---
+Now that you are all set up coop applier will finally apply to some job for you. Use the command `apply` to start.
+
+`python .\coop_applier apply [username] [password] [name of search template]`
+
+If you have two factor authentication you will need to watch the program and when promted input your code.
+
+When the program is running is will create a TODO folder containing folders for each Job that needs extra work on your end. The extra work will most likely be applying on the company website, because of that you'll find the cover letter and resume use to apply to the job covinetely in the same folder.
+
+Note
+---
+
+Make sure you have an up to date SIS and transcript on file because coop applier will use your most recently posted document of each.

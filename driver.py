@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import shutil
+import os
 
 
 def main(user, secret, search):
@@ -72,6 +73,12 @@ def main(user, secret, search):
             applier(driver, title)
             driver.close()
             driver.switch_to.window(main)
+            
+            # delete created cover letters
+            if os.path.exists(os.path.join(cover_dr, cover_letter)):
+                os.remove(os.path.join(cover_dr, cover_letter))
+            if os.path.exists(os.path.join(cover_dr, title + '.pdf')):
+                os.remove(os.path.join(cover_dr, title + '.pdf'))
             
             break
             
