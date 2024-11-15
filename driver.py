@@ -11,7 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def main(user, secret):
+def main(user, secret, search):
 
     # sanity checks 
     current = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +33,7 @@ def main(user, secret):
         return
     
 
-    driver = login(user, secret)
+    driver = login(user, secret, search)
     if driver == None:
         print("Error: login failed")
         return

@@ -12,7 +12,7 @@ def cover_letter(args):
     return
 
 def applier(args):
-    driver.main(args.user, args.password)
+    driver.main(args.user, args.password, args.search)
     return
 
 parser = argparse.ArgumentParser()
@@ -33,6 +33,7 @@ parser_cover.set_defaults(func=cover_letter)
 parser_applier = subparsers.add_parser('applier', help='argument for appling to jobs')
 parser_applier.add_argument('user', type=str, help='Your username (computing ID) to login to SFU, case sensitive')
 parser_applier.add_argument('password', type=str, help='Your password to loging to SFU, case sensitive')
+parser_applier.add_argument('search', type=str, help='The name of the custom saved search saved on the Coop board')
 parser_applier.set_defaults(func=applier)
 
 args = parser.parse_args()
