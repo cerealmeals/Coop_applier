@@ -75,12 +75,14 @@ def main(user, secret, search):
             driver.switch_to.window(main)
             
             # delete created cover letters
-            if os.path.exists(os.path.join(cover_dr, cover_letter)):
-                os.remove(os.path.join(cover_dr, cover_letter))
+            print(title + '.docx')
+            if os.path.exists(os.path.join(cover_dr, title + '.docx')):
+                print('check')
+                os.remove(os.path.join(cover_dr, title + '.docx'))
+            
             if os.path.exists(os.path.join(cover_dr, title + '.pdf')):
                 os.remove(os.path.join(cover_dr, title + '.pdf'))
             
-            break
             
     
     time.sleep(20)
