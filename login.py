@@ -9,7 +9,7 @@ import time
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-def login(user, secret):
+def login(user, secret, search):
 
     driver = webdriver.Firefox()
     driver.get("https://myexperience.sfu.ca/notLoggedIn.htm")
@@ -54,9 +54,9 @@ def login(user, secret):
 
     try:
         select = Select(wait.until(EC.presence_of_element_located((By.ID, "savedSearchId"))))
-        select.select_by_visible_text('normal')
+        select.select_by_visible_text(search)
     except TimeoutException as ex:
-        print("Error savedsearchs", str(ex))
+        print("Error: No such custom saved search", search)
     except Exception as e:
         print(str(e))
     
@@ -68,7 +68,6 @@ def login(user, secret):
     except Exception as e:
         print(str(e))
     
-    print(driver.title)
     return None
 
 

@@ -64,6 +64,8 @@ def read_file(file):
         if not os.path.exists(todo):
             os.makedirs(todo)
         try:
+            todo = os.path.join(todo, file)
+            os.makedirs(todo)
             f = open(os.path.join(todo, file), 'w+')
             f.write(string)
             f.close()

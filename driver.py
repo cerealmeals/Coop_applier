@@ -9,9 +9,11 @@ from upload import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import shutil
+import os
 
 
-def main(user, secret):
+def main(user, secret, search):
 
     # sanity checks 
     current = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +35,7 @@ def main(user, secret):
         return
     
 
-    driver = login(user, secret)
+    driver = login(user, secret, search)
     if driver == None:
         print("Error: login failed")
         return
@@ -59,20 +61,24 @@ def main(user, secret):
             upload_cover_letter(driver, title + '.pdf')
             upload_resume(driver, resume)
 
-            todo = os.path.join(current, 'TODO')
+            
             if flag:
-                try:
-                    f = open(os.path.join(todo, title), 'a')
-                    f.write('\nThe Cover Letter used for this application was: '+ title + '.pdf')
-                    f.write('\nThe Resume used for this application was: '+ resume)
-                    f.close()
-                except Exception as e:
-                    print('file Error trying to read data', str(e))
+                todo = os.path.join(current, 'TODO', title)
+                cover_path = os.path.join(cover_dr, title + '.pdf')
+                resume_path = os.path.join(resume_dr, resume)
+                shutil.copy2(cover_path, todo)
+                shutil.copy2(resume_path, todo)
 
             driver.switch_to.window(driver.window_handles[1])
             applier(driver, title)
             driver.close()
             driver.switch_to.window(main)
+            
+            # delete created cover letters
+            if os.path.exists(os.path.join(cover_dr, cover_letter)):
+                os.remove(os.path.join(cover_dr, cover_letter))
+            if os.path.exists(os.path.join(cover_dr, title + '.pdf')):
+                os.remove(os.path.join(cover_dr, title + '.pdf'))
             
             break
             
