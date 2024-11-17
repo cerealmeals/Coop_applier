@@ -28,26 +28,28 @@ def applier(driver, title):
     except Exception as e:
         print('radio error\n' ,str(e))
 
+    try:
+        # name the package the job title and use all most recent posts
+        title_elem = driver.find_element(By.ID, 'packageName')
+        title_elem.send_keys(title)
 
-    # name the package the job title and use all most recent posts
-    title_elem = driver.find_element(By.ID, 'packageName')
-    title_elem.send_keys(title)
+        SIS = Select(driver.find_element(By.ID, 'requiredInPackage18'))
+        SIS.select_by_index(1)
 
-    SIS = Select(driver.find_element(By.ID, 'requiredInPackage18'))
-    SIS.select_by_index(1)
+        cover = Select(driver.find_element(By.ID, 'requiredInPackage14'))
+        cover.select_by_index(1)
 
-    cover = Select(driver.find_element(By.ID, 'requiredInPackage14'))
-    cover.select_by_index(1)
+        resume = Select(driver.find_element(By.ID, 'requiredInPackage15'))
+        resume.select_by_index(1)
 
-    resume = Select(driver.find_element(By.ID, 'requiredInPackage15'))
-    resume.select_by_index(1)
+        transcript = Select(driver.find_element(By.ID, 'requiredInPackage16'))
+        transcript.select_by_index(1)
 
-    transcript = Select(driver.find_element(By.ID, 'requiredInPackage16'))
-    transcript.select_by_index(1)
-
-    # sumbit the job
-    submit = driver.find_element(By.CSS_SELECTOR, "input[type='Submit']")
-    submit.click()
-
+        # sumbit the job
+        submit = driver.find_element(By.CSS_SELECTOR, "input[type='Submit']")
+        submit.click()
+    
+    except Exception as e:
+        print('select or submit error\n' ,str(e))
 
     
