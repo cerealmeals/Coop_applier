@@ -80,3 +80,5 @@ Note
 ---
 
 Make sure you have an up to date SIS and transcript on file because coop applier will use your most recently posted document of each.
+
+Also all jobs that require more than a resume, cover letter, SIS and trascript will be not be applied too, sorry not don't have enough time to code that flexibility.
