@@ -49,21 +49,21 @@ A cover letter template is a docx file that has things to replace within the doc
 
 An example cover letter could look like this
 
-![cover_letter](./readme/cover_letter.png)
+![cover_letter](./.readme_files/cover_letter.png)
 
 Now that the program has at least one cover letter and one resume, you need one more thing, a search template on the co-op board.
 
 To create an search template login into the sfu co-op job board and click advanced search
-![advanced_search](./readme/Search1.png)
+![advanced_search](./.readme_files/Search1.png)
 
 Then set up your search and click search job posting at the bottom of the page
-![search_job_posting](./readme/Search2.png)
+![search_job_posting](./.readme_files/Search2.png)
 
 Now click Save my search criteria
-![save_search](./readme/Search3.png)
+![save_search](./.readme_files/Search3.png)
 
 And finally give your search a name and save
-![save](./readme/Search4.png)
+![save](./.readme_files/Search4.png)
 
 
 Running Coop applier
