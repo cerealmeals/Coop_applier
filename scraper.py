@@ -16,7 +16,7 @@ def scraper(driver):
     try:
         title_elem = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,'dashboard-header__profile-information-name')))
         title = title_elem[0].text
-        
+        title = check_for_valid_file_name(title)
     except Exception as e:
         print('title error\n' ,str(e))
     
@@ -48,4 +48,14 @@ def scraper(driver):
     return title
 
 
-    
+def check_for_valid_file_name(string):
+    list_of_bad = ['>', '<', ':', '\"', '/', '\\', '|', '?', '*']
+    index_of_bad = []
+    check = list(string)
+    for i, ch in enumerate(check):
+        if ch in list_of_bad:
+            index_of_bad.append(i)
+    for i in range(len(index_of_bad)-1, -1, -1):
+        check.pop(index_of_bad[i])
+    string = ''.join(check)
+    return string

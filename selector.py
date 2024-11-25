@@ -1,5 +1,6 @@
 import os
 import pickle # dependency
+import heapq
 
 def selector(title):
 
@@ -22,6 +23,7 @@ def selector(title):
     i = 0
     # walk through the keywords by priority
     while i < len(obj):
+        
         tup = obj[i]
         i += 1
         if lower_case_title.find(tup[1].lower()) != -1:
