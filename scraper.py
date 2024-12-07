@@ -27,8 +27,9 @@ def scraper(driver):
     if not os.path.exists(current):
         os.makedirs(current)
     
-    print('at file path', current)
+    
     filepath = os.path.join(current, title)
+    print('at file path', filepath)
     try:
         f = open(filepath, "w")
         

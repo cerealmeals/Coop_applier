@@ -61,7 +61,7 @@ def main(user, secret, search):
             upload_cover_letter(driver, title + '.pdf')
             upload_resume(driver, resume)
 
-            
+            #print('Apply online?', flag)
             if flag:
                 todo = os.path.join(current, 'TODO', title)
                 cover_path = os.path.join(cover_dr, title + '.pdf')

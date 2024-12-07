@@ -53,11 +53,11 @@ def read_file(file):
     result.update({'[Title]': file})
     result.update(getLine(data, '#\nOrganization: ', '[Company]'))
 
-    start = data.find('Additional Application Information: ')
+    start = data.find('Additional Application Information:')
     flag = False
     if start > -1:
         flag = True
-        start += len('Additional Application Information: ')
+        start += len('Additional Application Information:')
         end = data.find('#', start)
         string = data[start:end]
         todo = os.path.join(current, 'TODO')
