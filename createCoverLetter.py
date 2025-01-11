@@ -45,13 +45,13 @@ def read_file(file):
     except Exception as e:
         print('file Error trying to read data', str(e))
 
-
-    result.update(getLine(data, '#\nAddress Line One: ', '[Address]'))
-    result.update(getLine(data, '#\nCity: ', '[City]'))
-    result.update(getLine(data, '#\nProvince / State: ', '[Province]')) # need to translate to letters
-    result.update(getLine(data, '#\nPostal Code / Zip Code: ', '[Postal]'))
+    #temp = getLine(data, '#\nAddress Line One: ', '[Address]')
+    result.update(getLine(data, '#\nAddress Line One: ', '[Address]') or '')
+    result.update(getLine(data, '#\nCity: ', '[City]') or '')
+    result.update(getLine(data, '#\nProvince / State: ', '[Province]') or '') # need to translate to letters
+    result.update(getLine(data, '#\nPostal Code / Zip Code: ', '[Postal]') or '')
     result.update({'[Title]': file})
-    result.update(getLine(data, '#\nOrganization: ', '[Company]'))
+    result.update(getLine(data, '#\nOrganization: ', '[Company]') or '')
 
     start = data.find('Additional Application Information:')
     flag = False
