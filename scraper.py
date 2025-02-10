@@ -20,7 +20,11 @@ def scraper(driver):
     except Exception as e:
         print('title error\n' ,str(e))
     
-    
+    try:
+        WebDriverWait(driver, 0.01).until(EC.presence_of_element_located((By.CLASS_NAME,'applyButton')))
+    except Exception as e:
+        print("No apply button for job", title)
+        return "NONE"
     print('Creating file for job', title)
     current = os.path.dirname(os.path.abspath(__file__))
     current = os.path.join(current, 'Jobs')

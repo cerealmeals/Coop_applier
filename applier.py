@@ -12,9 +12,9 @@ import os
 def applier(driver, title):
 
     # on correct page click apply
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 120)
     try:
-        btn = wait.until(EC.presence_of_element_located((By.CLASS_NAME,'applyButton')))
+        btn = wait.until(EC.element_to_be_clickable((By.CLASS_NAME,'applyButton')))
         btn.click()
      
     except Exception as e:
@@ -22,7 +22,8 @@ def applier(driver, title):
 
     # click button that to make new package
     try:
-        radio = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,"input[type='radio'][value='customPkg']")))
+        radio = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,"input[type='radio'][value='customPkg']")))
+        driver.execute_script("arguments[0].scrollIntoView(true);", radio)
         radio.click()
         
     except Exception as e:
